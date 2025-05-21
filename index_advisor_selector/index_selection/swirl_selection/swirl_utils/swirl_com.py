@@ -35,7 +35,7 @@ def get_parser():
                         choices=["swirl", "drlinda", "dqn"])
     parser.add_argument("--timesteps", type=int, default=100)
     parser.add_argument("--seed", type=int, default=None)
-
+    parser.add_argument("train_mode", type=str, default="continuous")
     parser.add_argument("--constraint", type=str, default="storage",
                         choices=["storage", "number"])
     parser.add_argument("--max_budgets", type=int, default=500)
@@ -47,13 +47,13 @@ def get_parser():
     parser.add_argument("--varying_frequencies", action="store_true")
 
     parser.add_argument("--exp_conf_file", type=str,
-                        default="/data/wz/index/index_eab/eab_data/rl_run_conf/swirl_tpch_1gb.json")
+                        default="~/Index_EAB/configuration_loader/index_advisor/rl_run_conf/swirl_config.json")
     parser.add_argument("--db_conf_file", type=str,
-                        default="/data/wz/index/index_eab/eab_data/db_info_conf/local_db103_tpch_1gb.conf")
+                        default="~/Index_EAB/configuration_loader/database/db_con.conf")
     parser.add_argument("--schema_file", type=str,
-                        default="/data/wz/index/index_eab/eab_data/db_info_conf/schema_tpch_1gb.json")
+                        default="~/Index_EAB/configuration_loader/database/schema_tpch.json")
     parser.add_argument("--colinfo_load", type=str,
-                        default="/data/wz/index/index_eab/eab_data/db_info_conf/colinfo_tpch_1gb.json")
+                        default="~/Index_EAB/configuration_loader/database/colinfo_tpch.json")
 
     parser.add_argument("--user", type=str, default=None)
     parser.add_argument("--password", type=str, default=None)
@@ -89,32 +89,32 @@ def get_parser():
 
     # 1) template
     parser.add_argument("--eval_file", type=str,
-                        default="/data/wz/index/index_eab/eab_olap/bench_temp/tpch/tpch_work_temp_multi_w18_freq_n10_eval.json")
+                        default="~/Index_EAB/workload_generator/template_based/tpch_work_temp_multi_freq.json")
 
     # 2) not_template
     parser.add_argument("--work_type", type=str, default="not_template",
                         choices=["template", "not_template"])
     parser.add_argument("--work_file", type=str,
-                        default="/data/wz/index/index_eab/eab_olap/bench_temp/tpch/tpch_query_temp_multi_n1000.json")
+                        default="~/Index_EAB/workload_generator/template_based/tpch_query_temp_multi.json")
 
     parser.add_argument("--temp_expand", action="store_true")
     parser.add_argument("--temp_load", type=str, default=None)
     
     parser.add_argument("--rl_exp_load", type=str,
-                        default="/data/wz/index/attack/swirl_selection/exp_res/s152_swirlh1gb_temp_w18_b500_10w/experiment_object.pickle")
+                        default="/home/azrmedit0x/Index_EAB/index_advisor_selector/index_selection/swirl_selection/exp_res/swirl_tpch_v1/experiment_object.pickle")
     parser.add_argument("--rl_model_load", type=str,
-                        default="/data/wz/index/attack/swirl_selection/exp_res/s152_swirlh1gb_temp_w18_b500_10w/best_mean_reward_model.zip")
+                        default="/home/azrmedit0x/Index_EAB/index_advisor_selector/index_selection/swirl_selection/exp_res/swirl_tpch_v1/best_mean_reward_model.zip")
     parser.add_argument("--rl_env_load", type=str,
-                        default="/data/wz/index/attack/swirl_selection/exp_res/s152_swirlh1gb_temp_w18_b500_10w/vec_normalize.pkl")
+                        default="~/home/azrmedit0x/Index_EAB/index_advisor_selector/index_selection/swirl_selection/exp_res/swirl_tpch_v1/vec_normalize.pkl")
 
-    parser.add_argument("--res_save_path", type=str, default="./exp_res",
+    parser.add_argument("--res_save_path", type=str, default="index_advisor_selector/index_selection/swirl_selection/exp_res/results",
                         help="The experimental result's folder.")
     parser.add_argument("--res_save", type=str, default=None,
                         help="The inference result's folder.")
     parser.add_argument("--logdir", type=str,
-                        default="./exp_res/{}/logdir")
+                        default="index_advisor_selector/index_selection/swirl_selection/exp_res/results/{}/logdir")
     parser.add_argument("--log_file", type=str,
-                        default="./exp_res/{}/exp_runtime.log")
+                        default="index_advisor_selector/index_selection/swirl_selection/exp_res/results/{}/exp_runtime.log")
 
     return parser
 

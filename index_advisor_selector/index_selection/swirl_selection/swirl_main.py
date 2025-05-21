@@ -20,25 +20,30 @@ from swirl_utils.workload_generator import WorkloadGenerator
 from swirl_utils.configuration_parser import ConfigurationParser
 
 # import sys
-# sys.path.append("/data/wz/index")
+# sys.path.append("Index_EAB/index_advisor_selector/index_selection/swirl_selection")
 
 # https://github.com/hyrise/rl_index_selection
 # https://stable-baselines.readthedocs.io/en/master/
 
 
 def train_swirl(args):
-    logging.info(f"The training mode is `{args.train_mode}`.")
-    with open(args.rl_exp_load, "rb") as rf:
-        experiment = pickle.load(rf)
-    parallel_environments = experiment.exp_config["parallel_environments"]
-
+    # logging.info(f"The training mode is `{args.train_mode}`.")
+    # with open(os.path.expanduser(args.rl_exp_load), "rb") as rf:
+    #     experiment = pickle.load(rf)
+    # parallel_environments = experiment.exp_config["parallel_environments"]
+    # 1) Record the experiment time; 2) Load the configuration;
+    # 3) Specify the stable_baselines version; 4) Create the experiment folder.
+    experiment = Experiment(args)
+    experiment.prepare()
+    logging.info(f"The value of `parallel_environments` is `{experiment.exp_config['parallel_environments']}`.")
     experiment.id = args.exp_id
     cp = ConfigurationParser(args.exp_conf_file)
     experiment.exp_config = cp.config
-    experiment.exp_config["parallel_environments"] = parallel_environments
+    parallel_environments = experiment.exp_config["parallel_environments"]
+    # experiment.exp_config["parallel_environments"] = parallel_environments
     logging.info(f"The value of `parallel_environments` is `{experiment.exp_config['parallel_environments']}`.")
 
-    experiment._create_experiment_folder()
+    # experiment._create_experiment_folder()
 
     log_file = args.log_file.format(args.exp_id)
     set_logger(log_file)
@@ -48,6 +53,15 @@ def train_swirl(args):
         "validation": {"Extend": [], "DB2Adv": []}
     }
     experiment.comparison_indexes = {"Extend": set(), "DB2Adv": set()}
+    # if not hasattr(experiment, 'workload_generator') or experiment.workload_generator is None:
+    #     experiment.workload_generator = WorkloadGenerator(
+    #         work_config=experiment.exp_config["workload"],
+    #         work_type=args.work_type,
+    #         work_file=args.work_file,
+    #         db_config=experiment.db_config_file,
+    #         schema_columns=experiment.schema.columns,
+    #         random_seed=experiment.exp_config["random_seed"]
+    #     )
 
     with open(args.work_file, "r") as rf:
         query_text = rf.readlines()
@@ -71,11 +85,9 @@ def train_swirl(args):
 
     # Save the workloads into `.pickle` file.
     experiment._pickle_workloads()
-    if True:
-        # 1) Record the experiment time; 2) Load the configuration;
-        # 3) Specify the stable_baselines version; 4) Create the experiment folder.
-        experiment = Experiment(args)
-        logging.info(f"The value of `parallel_environments` is `{experiment.exp_config['parallel_environments']}`.")
+    # if True:
+
+
 
     # only stable_baselines2 supported.
     if experiment.exp_config["rl_algorithm"]["stable_baselines_version"] == 2:
@@ -92,7 +104,6 @@ def train_swirl(args):
     if True:
         # 1) Schema information preparation; 2) Workload preparation;
         # 3) Index candidates preparation; 4) Workload embedding / representation.
-        experiment.prepare()
 
         eval_workload = None
         if args.eval_file is not None:

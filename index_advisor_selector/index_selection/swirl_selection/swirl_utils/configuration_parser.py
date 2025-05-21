@@ -62,6 +62,7 @@ class ConfigurationParser(object):
         self._translate_model_architecture()
 
         self._check_dependencies()
+        self.config.setdefault("train_mode", "continuous")
 
     def _determine_missing_configuration_options(
         self, expected_configuration_options, actual_configuration_options, crash_on_fail=True
@@ -98,7 +99,9 @@ class ConfigurationParser(object):
         if self.config["rl_algorithm"]["algorithm"] == "DQN":
             if self.config["parallel_environments"] > 1:
                 raise ValueError("For DQN parallel parallel_environments must be 1.")
-
+        if self.config["train_mode"] == "continuous":
+            assert self.config["parallel_environments"] > 1, \
+                "Continuous training requires parallel environments > 1"#train mode logic(new append)
         if "Embedding" in self.config["observation_manager"]:
             assert (
                 "workload_embedder" in self.config

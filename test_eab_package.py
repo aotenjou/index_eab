@@ -15,23 +15,23 @@ from index_eab.index_advisor.extend_algorithm import ExtendAlgorithm
 
 def test_case():
     # 1. Configuration Setup
-    host = "-- your host --"
-    port = "-- your port --"
-    db_name = "-- your database --"
+    host = "localhost"
+    port = "5432"
+    db_name = "indexselection_tpch___10"
 
-    user = "-- your user --"
-    password = "-- your password --"
+    user = "azrmedit0x"
+    password = "200412"
 
     connector = PostgresDatabaseConnector(autocommit=True, host=host, port=port,
                                           db_name=db_name, user=user, password=password)
 
     # 2. Data Preparation
-    schema_load = "/path/your database schema.json"
+    schema_load = "configuration_loader/database/schema_tpch.json"
     with open(schema_load, "r") as rf:
         schema_list = json.load(rf)
     _, columns = get_columns_from_schema(schema_list)
 
-    work_load = "/path/testing workload.json"
+    work_load = "workload_generator/random/tpch_work_multi.json"
     with open(work_load, "r") as rf:
         work_list = json.load(rf)[:1]
 
