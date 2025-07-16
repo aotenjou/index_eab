@@ -38,7 +38,7 @@ def ortho_init(scale=1.0):
         u, _, v = np.linalg.svd(gaussian_noise, full_matrices=False)
         weights = u if u.shape == flat_shape else v  # pick the one with the correct shape
         weights = weights.reshape(shape)
-        return (scale * weights[:shape[0], :shape[1]]).astype(np.float32)
+        return (scale * weights[:shape[0], :shape[1]]).astype(float32)
 
     return _ortho_init
 

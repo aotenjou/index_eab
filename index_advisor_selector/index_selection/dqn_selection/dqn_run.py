@@ -8,12 +8,16 @@ import os
 import time
 import pickle
 import logging
-
+import json
 import Model as model
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
 
 from index_advisor_selector.index_selection.dqn_selection.dqn_utils import Encoding as en
 from index_advisor_selector.index_selection.dqn_selection.dqn_utils import ParserForIndex as pi
 from index_advisor_selector.index_selection.dqn_selection.dqn_utils.Common import get_parser, set_logger, gen_cands
+from index_advisor_selector.index_selection.dqn_selection.dqn_utils.workload_single import *
 
 conf = {"LR": 0.002, "EPSILON": 0.97, "Q_ITERATION": 200, "U_ITERATION": 5, "BATCH_SIZE": 64,
         "GAMMA": 0.95, "EPISODES": 1000, "LEARNING_START": 600, "DECAY_EP": 50, "MEMORY_CAPACITY": 20000}
@@ -34,13 +38,30 @@ def train_dqn(args):
 
     logging.info(f"Load workload from `{args.work_load}`.")
 
-    if args.work_load.endswith(".pickle"):
-        with open(args.work_load, "rb") as rf:
-            workload = pickle.load(rf)
-    elif args.work_load.endswith(".sql"):
-        with open(args.work_load, "r") as rf:
-            workload = rf.readlines()
-    frequency = [1 for _ in range(len(workload))]
+
+
+    # if args.work_load.endswith(".pickle"):
+    #     with open(args.work_load, "rb") as rf:
+    #         workload = pickle.load(rf)
+    # elif args.work_load.endswith(".sql"):
+    #     with open(args.work_load, "r") as rf:
+    #         workload = rf.readlines()
+    # elif args.work_load.endswith(".json"):  # 新增json文件解析
+    #     with open(args.work_load, "r", encoding="utf-8") as rf:
+    #         workload = json.load(rf)
+
+    workloads = load_workloads(args.work_load)# 加载出来是一个以workload_single中的workload类为元素的list
+    # 合并所有workload中的所有queries
+    all_queries = []
+    all_frequencies = []
+    for w in workloads:
+        for q in w.queries:
+            all_queries.append(q.sql)
+            all_frequencies.append(q.frequency if hasattr(q, 'frequency') else 1)
+    
+    workload = all_queries
+    frequency = all_frequencies
+    # print(workload)
 
     if os.path.exists(args.cand_load):
         logging.info(f"Load candidate from `{args.cand_load}`.")
@@ -50,8 +71,9 @@ def train_dqn(args):
         logging.info(f"Generate candidate based on `{args.work_load}`.")
         enc = en.encoding_schema(args.conf_load)
         sql_parser = pi.Parser(enc["attr"])
-
+        print(sql_parser)
         index_candidates = gen_cands(workload, sql_parser)
+        # print(index_candidates)
 
     agent = model.DQN(args, workload, frequency, index_candidates, index_mode,
                       conf, args.is_dnn, args.is_ps, args.is_double, args.a, args.action_mode)
@@ -96,13 +118,23 @@ def get_dqn_res(args):
 
     index_mode = "hypo"
 
-    if args.work_load.endswith(".pickle"):
-        with open(args.work_load, "rb") as rf:
-            workload = pickle.load(rf)
-    elif args.work_load.endswith(".sql"):
-        with open(args.work_load, "r") as rf:
-            workload = rf.readlines()
-    frequency = [1 for _ in range(len(workload))]
+    # if args.work_load.endswith(".pickle"):
+    #     with open(args.work_load, "rb") as rf:
+    #         workload = pickle.load(rf)
+    # elif args.work_load.endswith(".sql"):
+    #     with open(args.work_load, "r") as rf:
+    #         workload = rf.readlines()
+    workloads = load_workloads(args.work_load)# 加载出来是一个以workload_single中的workload类为元素的list
+    # 合并所有workload中的所有queries
+    all_queries = []
+    all_frequencies = []
+    for w in workloads:
+        for q in w.queries:
+            all_queries.append(q.sql)
+            all_frequencies.append(q.frequency if hasattr(q, 'frequency') else 1)
+    
+    workload = all_queries
+    frequency = all_frequencies
 
     if os.path.exists(args.cand_load):
         with open(args.cand_load, "rb") as rf:

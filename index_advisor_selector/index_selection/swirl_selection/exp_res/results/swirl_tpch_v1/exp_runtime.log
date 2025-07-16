@@ -1,0 +1,12 @@
+2025-05-19 09:53:01 - root - DEBUG: - Database connector created: indexselection_tpch___10 on localhost
+2025-05-19 09:53:01 - root - INFO: - Postgres: Set random seed `SELECT setseed(0.17)`
+2025-05-19 09:53:01 - root - WARNING: - Reduced columns from 61 to 54.
+2025-05-19 09:53:01 - root - CRITICAL: - Sample instances from training workloads (90): [Query IDs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 19, 21, 22] with frequencies: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].  Budget: None]
+2025-05-19 09:53:01 - root - CRITICAL: - Creating all indexes of width 1.
+2025-05-19 09:53:01 - root - CRITICAL: - Finished checking 54 indexes of width 1.
+2025-05-19 09:53:01 - root - CRITICAL: - Creating all indexes of width 2.
+2025-05-19 09:53:01 - root - CRITICAL: - Finished checking 502 indexes of width 2.
+2025-05-19 09:53:01 - root - WARNING: - Dictionary has 110 entries.
+2025-05-19 09:53:02 - root - WARNING: - The following configuration options are missing or optional: {'column_filters', 'constraint', 'max_indexes', 'train_mode', 'workload_embedder'}
+2025-05-19 09:53:03 - root - WARNING: - The following configuration options are missing or optional: {'column_filters', 'constraint', 'max_indexes', 'train_mode', 'workload_embedder'}
+2025-05-19 09:53:03 - root - WARNING: - The following configuration options are missing or optional: {'column_filters', 'constraint', 'max_indexes', 'train_mode', 'workload_embedder'}

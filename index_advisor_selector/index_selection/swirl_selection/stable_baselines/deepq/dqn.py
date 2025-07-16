@@ -7,14 +7,14 @@ tf.disable_v2_behavior()
 import numpy as np
 import gym
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import LinearSchedule
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.buffers import ReplayBuffer, PrioritizedReplayBuffer
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.deepq.build_graph import build_train
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.deepq.policies import DQNPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import flatten_action_mask
+from . import logger
+from ..common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
+from ..common.vec_env import VecEnv
+from ..common.schedules import LinearSchedule
+from ..common.buffers import ReplayBuffer, PrioritizedReplayBuffer
+from ..deepq.build_graph import build_train
+from ..deepq.policies import DQNPolicy
+from ..common.misc_util import flatten_action_mask
 
 
 class DQN(OffPolicyRLModel):

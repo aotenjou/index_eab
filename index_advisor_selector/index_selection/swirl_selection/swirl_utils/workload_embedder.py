@@ -4,11 +4,11 @@ import logging
 import gensim
 from sklearn.decomposition import PCA
 
-from index_advisor_selector.index_selection.swirl_selection.swirl_utils.index import Index
-from index_advisor_selector.index_selection.swirl_selection.swirl_utils.workload import Workload, Query
-from index_advisor_selector.index_selection.swirl_selection.swirl_utils.cost_evaluation import CostEvaluation
+from .index import Index
+from .workload import Workload, Query
+from .cost_evaluation import CostEvaluation
 
-from index_advisor_selector.index_selection.swirl_selection.swirl_utils.boo import BagOfOperators
+from .boo import BagOfOperators
 
 
 # SQL/PLAN-level embedding
@@ -480,9 +480,9 @@ class PlanEmbedderLSITFIDF(PlanEmbedder):
 if __name__ == "__main__":
     import configparser
 
-    from index_advisor_selector.index_selection.swirl_selection.swirl_utils import swirl_com
-    from index_advisor_selector.index_selection.swirl_selection.swirl_utils.swirl_com import read_row_query, get_columns_from_schema
-    from index_advisor_selector.index_selection.swirl_selection.swirl_utils.postgres_dbms import PostgresDatabaseConnector
+    from . import swirl_com
+from .swirl_com import read_row_query, get_columns_from_schema
+from .postgres_dbms import PostgresDatabaseConnector
 
     db_config_file = "/data/wz/index/index_eab/eab_data/db_info_conf/local_db103_tpch_1gb.conf"
     db_config = configparser.ConfigParser()

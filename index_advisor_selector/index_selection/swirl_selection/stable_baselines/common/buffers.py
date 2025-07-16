@@ -3,8 +3,8 @@ from typing import Optional, List, Union
 
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.segment_tree import SumSegmentTree, MinSegmentTree
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecNormalize
+from ..common.segment_tree import SumSegmentTree, MinSegmentTree
+from ..common.vec_env import VecNormalize
 
 
 class ReplayBuffer(object):
@@ -228,7 +228,7 @@ class PrioritizedReplayBuffer(ReplayBuffer):
             - next_obs_batch: (np.ndarray) next set of observations seen after executing act_batch
             - done_mask: (numpy bool) done_mask[i] = 1 if executing act_batch[i] resulted in the end of an episode
                 and 0 otherwise.
-            - weights: (numpy float) Array of shape (batch_size,) and dtype np.float32 denoting importance weight of
+            - weights: (numpy float) Array of shape (batch_size,) and dtype float32 denoting importance weight of
                 each sampled transition
             - idxes: (numpy int) Array of shape (batch_size,) and dtype np.int32 idexes in buffer of sampled experiences
         """

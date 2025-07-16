@@ -11,13 +11,14 @@ import logging
 import importlib
 import numpy as np
 
-from experiment import Experiment
-from gym_db.common import EnvironmentType
+from .experiment import Experiment
+from .gym_db.common import EnvironmentType
 
-from swirl_utils.swirl_com import set_logger, get_parser
-from swirl_utils.workload import Query, Workload
-from swirl_utils.workload_generator import WorkloadGenerator
-from swirl_utils.configuration_parser import ConfigurationParser
+from .swirl_utils.swirl_com import set_logger, get_parser
+from .swirl_utils.workload import Query, Workload
+from .swirl_utils.workload_generator import WorkloadGenerator
+from .swirl_utils.configuration_parser import ConfigurationParser
+from swirl_utils.postgres_dbms import PostgresDatabaseConnector
 
 # import sys
 # sys.path.append("Index_EAB/index_advisor_selector/index_selection/swirl_selection")
@@ -214,7 +215,7 @@ def train_swirl(args):
         training_env = VecNormalize(training_env, norm_obs=True, norm_reward=True,
                                     gamma=experiment.exp_config["rl_algorithm"]["gamma"], training=True)
 
-        # Normalization is applied to improve the network’s learning behavior.
+        # Normalization is applied to improve the network's learning behavior.
         # save the `experiment` object.
         experiment.model_type = algorithm_class
         with open(f"{experiment.experiment_folder_path}/experiment_object.pickle", "wb") as handle:

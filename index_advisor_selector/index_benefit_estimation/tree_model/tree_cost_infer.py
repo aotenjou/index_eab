@@ -75,10 +75,10 @@ def get_tree_est_res(model, plan):
     # Scale features of X according to feature_range
     # if tree_args.feat_chan in ["cost", "row", "cost_row"]:
     #     scaler = torch.load(tree_args.scale_load)
-    #     X_test = np.array(scaler.transform(X_test), dtype=np.float32)
+    #     X_test = np.array(scaler.transform(X_test), dtype=float32)
     if feat_chan in ["cost", "row", "cost_row"]:
         scaler = torch.load(scale_load)
-        X_test = np.array(scaler.transform(X_test), dtype=np.float32)
+        X_test = np.array(scaler.transform(X_test), dtype=float32)
 
     y_pred = model.estimate(X_test)
 
@@ -111,7 +111,7 @@ def eval_model():
     if args.feat_chan in ["cost", "row", "cost_row"]:
         # args.scale_load = "/data/wz/index/index_eab/eab_benefit/tree_model/cost_exp_res/exp_xgb_tpch_tgt_round5k/data/train_scale_data.pt"
         scaler = torch.load(args.scale_load)
-        X_test = np.array(scaler.transform(X_test), dtype=np.float32)
+        X_test = np.array(scaler.transform(X_test), dtype=float32)
 
     # args.model_type = "XGBoost"
     # args.model_load = "/data/wz/index/index_eab/eab_benefit/tree_model/cost_exp_res/exp_xgb_tpch_tgt_round5k/model/reg_xgb_cost.xgb.model"

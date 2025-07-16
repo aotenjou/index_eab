@@ -2,13 +2,13 @@
 import numpy as np
 import gym
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import mujoco_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import bench, logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import set_global_seeds
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.vec_normalize import VecNormalize
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ppo2 import PPO2
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import MlpPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.dummy_vec_env import DummyVecEnv
+from ..common.cmd_util import mujoco_arg_parser
+from . import bench, logger
+from ..common import set_global_seeds
+from ..common.vec_env.vec_normalize import VecNormalize
+from ..ppo2 import PPO2
+from ..common.policies import MlpPolicy
+from ..common.vec_env.dummy_vec_env import DummyVecEnv
 
 
 def train(env_id, num_timesteps, seed):

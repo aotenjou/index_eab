@@ -5,7 +5,7 @@ import gym
 from gym import spaces
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import DummyVecEnv, VecCheckNan
+from ..common.vec_env import DummyVecEnv, VecCheckNan
 
 
 def _enforce_array_obs(observation_space: spaces.Space) -> bool:

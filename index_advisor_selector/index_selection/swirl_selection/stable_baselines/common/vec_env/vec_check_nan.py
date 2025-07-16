@@ -2,7 +2,7 @@ import warnings
 
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.base_vec_env import VecEnvWrapper
+from ..common.vec_env.base_vec_env import VecEnvWrapper
 
 
 class VecCheckNan(VecEnvWrapper):

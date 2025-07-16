@@ -3,11 +3,11 @@ import os
 
 from mpi4py import MPI
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import set_global_seeds
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import bench, logger, PPO1
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.atari_wrappers import make_atari, wrap_deepmind
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import atari_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import CnnPolicy
+from ..common import set_global_seeds
+from . import bench, logger, PPO1
+from ..common.atari_wrappers import make_atari, wrap_deepmind
+from ..common.cmd_util import atari_arg_parser
+from ..common.policies import CnnPolicy
 
 
 def train(env_id, num_timesteps, seed):

@@ -152,7 +152,7 @@ class Normalizer:
         return labels_norm
 
     def unnormalize_labels(self, labels_norm):
-        labels_norm = np.array(labels_norm, dtype=np.float32)
+        labels_norm = np.array(labels_norm, dtype=float32)
         labels = (labels_norm * (self.maxi - self.mini)) + self.mini
 
         #         return np.array(np.round(np.exp(labels) - 0.001), dtype=np.int64)

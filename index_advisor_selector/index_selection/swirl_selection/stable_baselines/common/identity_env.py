@@ -66,7 +66,7 @@ class IdentityEnvBox(IdentityEnv):
         :param eps: (float) the epsilon bound for correct value
         :param ep_length: (int) the length of each episode in timesteps
         """
-        space = Box(low=low, high=high, shape=(1,), dtype=np.float32)
+        space = Box(low=low, high=high, shape=(1,), dtype=float32)
         super().__init__(ep_length=ep_length, space=space)
         self.eps = eps
 

@@ -1,0 +1,25 @@
+2025-04-24 22:13:01 - root - WARNING: - The following configuration options are missing or optional: {'workload_embedder', 'column_filters', 'max_indexes', 'constraint'}
+2025-04-24 22:13:01 - root - INFO: - The value of `parallel_environments` is `1`.
+2025-04-24 22:13:01 - root - INFO: - The value of `parallel_environments` is `1`.
+2025-04-24 22:13:01 - root - DEBUG: - Database connector created: azrmedit0x_db on localhost
+2025-04-24 22:13:01 - root - DEBUG: - Database connector created: azrmedit0x_db on localhost
+2025-04-24 22:13:01 - root - INFO: - Postgres: Set random seed `SELECT setseed(0.17)`
+2025-04-24 22:13:01 - root - INFO: - Postgres: Set random seed `SELECT setseed(0.17)`
+2025-04-24 22:20:19 - root - WARNING: - The following configuration options are missing or optional: {'max_indexes', 'workload_embedder', 'column_filters', 'constraint'}
+2025-04-24 22:20:50 - root - WARNING: - The following configuration options are missing or optional: {'column_filters', 'constraint', 'max_indexes', 'workload_embedder'}
+2025-04-24 22:20:50 - root - INFO: - The value of `parallel_environments` is `1`.
+2025-04-24 22:20:50 - root - INFO: - The value of `parallel_environments` is `1`.
+2025-04-24 22:20:50 - root - DEBUG: - Database connector created: azrmedit0x_db on localhost
+2025-04-24 22:20:50 - root - DEBUG: - Database connector created: azrmedit0x_db on localhost
+2025-04-24 22:20:50 - root - INFO: - Postgres: Set random seed `SELECT setseed(0.17)`
+2025-04-24 22:20:50 - root - INFO: - Postgres: Set random seed `SELECT setseed(0.17)`
+2025-05-03 21:42:04 - root - WARNING: - The following configuration options are missing or optional: {'column_filters', 'workload_embedder', 'constraint', 'max_indexes'}
+2025-05-03 21:42:04 - root - INFO: - Parallel environments: 1
+2025-05-03 21:42:32 - root - WARNING: - The following configuration options are missing or optional: {'column_filters', 'constraint', 'max_indexes', 'workload_embedder'}
+2025-05-03 21:42:32 - root - INFO: - Parallel environments: 1
+2025-05-03 21:47:00 - root - WARNING: - The following configuration options are missing or optional: {'max_indexes', 'workload_embedder', 'constraint', 'column_filters'}
+2025-05-03 21:47:00 - root - INFO: - Parallel environments: 1
+2025-05-03 21:47:00 - root - WARNING: - Reusing existing experiment folder: ./exp_res/results/swirl_local
+2025-05-03 21:50:57 - root - WARNING: - The following configuration options are missing or optional: {'workload_embedder', 'max_indexes', 'constraint', 'column_filters'}
+2025-05-03 21:50:57 - root - INFO: - Parallel environments: 1
+2025-05-03 21:50:57 - root - WARNING: - Reusing existing experiment folder: ./exp_res/results/swirl_local

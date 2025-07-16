@@ -14,6 +14,9 @@ from itertools import count
 
 from tensorboardX import SummaryWriter
 
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+
 import Env as env
 from index_advisor_selector.index_selection.dqn_selection.dqn_utils import Common
 from index_advisor_selector.index_selection.dqn_selection.dqn_utils.Common import plot_report
@@ -183,7 +186,7 @@ class DQN:
 
     def _sample(self):
         batch, idx = self.replay_buffer.sample(self.conf["BATCH_SIZE"])
-        # state, next_state, action, reward, np.float(done))
+        # state, next_state, action, reward, float(done))
         # batch = self.replay_memory.sample(self.batch_size)
 
         x, y, u, r, d = list(), list(), list(), list(), list()
@@ -254,9 +257,11 @@ class DQN:
             # h = item[1].register_hook(lambda grad: print(grad))
 
     def load_model(self):
+        # 记录日志信息，表示开始从指定路径加载模型
         logging.info(f"Load Model from: `{self.args.model_load}`.")
-        # directory + "dqn.pth"
+        # 从指定路径加载模型的状态字典到 actor 网络中
         self.actor.load_state_dict(torch.load(self.args.model_load))
+
 
     def save_model(self, model_save):
         # directory + "dqn.pth"
@@ -314,12 +319,12 @@ class DQN:
                 _next_state.append(next_state)
                 _action.append(action)
                 _reward.append(reward)
-                _done.append(np.float(done))"""
+                _done.append(float(done))"""
 
                 if self.is_ps:
-                    self.replay_buffer.add(1.0, (state, next_state, action, reward, np.float(done)))
+                    self.replay_buffer.add(1.0, (state, next_state, action, reward, float(done)))
                 else:
-                    self.replay_buffer.push((state, next_state, action, reward, np.float(done)))
+                    self.replay_buffer.push((state, next_state, action, reward, float(done)))
                 # if self.replay_buffer.can_update():
                 #    self.update()
 
@@ -334,7 +339,7 @@ class DQN:
                         current_best_reward = t_r
                         current_best_index = self.envx.index_trace_overall[-1]
 
-                    # self.replay_buffer.add(1.0, (state, next_state, action, reward, np.float(done)))
+                    # self.replay_buffer.add(1.0, (state, next_state, action, reward, float(done)))
                     if self.replay_buffer.can_update() and ep % 5 == 0:
                         self.update(ep)
                     break

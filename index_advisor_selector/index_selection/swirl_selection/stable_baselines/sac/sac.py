@@ -4,13 +4,13 @@ import warnings
 import numpy as np
 import tensorflow as tf
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.math_util import safe_mean, unscale_action, scale_action
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import get_schedule_fn
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.buffers import ReplayBuffer
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.sac.policies import SACPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
+from ..common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
+from ..common.vec_env import VecEnv
+from ..common.math_util import safe_mean, unscale_action, scale_action
+from ..common.schedules import get_schedule_fn
+from ..common.buffers import ReplayBuffer
+from ..sac.policies import SACPolicy
+from . import logger
 
 
 class SAC(OffPolicyRLModel):
@@ -177,7 +177,7 @@ class SAC(OffPolicyRLModel):
                     # Target entropy is used when learning the entropy coefficient
                     if self.target_entropy == 'auto':
                         # automatically set target entropy if needed
-                        self.target_entropy = -np.prod(self.action_space.shape).astype(np.float32)
+                        self.target_entropy = -np.prod(self.action_space.shape).astype(float32)
                     else:
                         # Force conversion
                         # this will also throw an error for unexpected string
@@ -194,7 +194,7 @@ class SAC(OffPolicyRLModel):
                             assert init_value > 0., "The initial value of ent_coef must be greater than 0"
 
                         self.log_ent_coef = tf.get_variable('log_ent_coef', dtype=tf.float32,
-                                                            initializer=np.log(init_value).astype(np.float32))
+                                                            initializer=np.log(init_value).astype(float32))
                         self.ent_coef = tf.exp(self.log_ent_coef)
                     else:
                         # Force conversion to float

@@ -34,7 +34,7 @@ def fmt_item(item, min_width):
     if isinstance(item, np.ndarray):
         assert item.ndim == 0
         item = item.item()
-    if isinstance(item, (float, np.float32, np.float64)):
+    if isinstance(item, (float, float32, float64)):
         value = abs(item)
         if (value < 1e-4 or value > 1e+4) and value > 0:
             rep = "%7.2e" % item

@@ -2,12 +2,12 @@ import os
 
 from gym.wrappers.monitoring import video_recorder
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.base_vec_env import VecEnvWrapper
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.dummy_vec_env import DummyVecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.subproc_vec_env import SubprocVecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.vec_frame_stack import VecFrameStack
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.vec_normalize import VecNormalize
+from . import logger
+from ..common.vec_env.base_vec_env import VecEnvWrapper
+from ..common.vec_env.dummy_vec_env import DummyVecEnv
+from ..common.vec_env.subproc_vec_env import SubprocVecEnv
+from ..common.vec_env.vec_frame_stack import VecFrameStack
+from ..common.vec_env.vec_normalize import VecNormalize
 
 
 class VecVideoRecorder(VecEnvWrapper):

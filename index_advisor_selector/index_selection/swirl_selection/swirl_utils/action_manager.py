@@ -4,7 +4,7 @@ import logging
 import numpy as np
 from gym import spaces
 
-from index_advisor_selector.index_selection.swirl_selection.swirl_utils.swirl_com import b_to_mb
+from .swirl_com import b_to_mb
 
 FORBIDDEN_ACTION_SB3 = -np.inf
 ALLOWED_ACTION_SB3 = 0

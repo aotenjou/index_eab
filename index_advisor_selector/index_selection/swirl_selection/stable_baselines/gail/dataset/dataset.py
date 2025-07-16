@@ -6,7 +6,7 @@ import cv2  # pytype:disable=import-error
 import numpy as np
 from joblib import Parallel, delayed
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
+from . import logger
 
 
 class ExpertDataset(object):

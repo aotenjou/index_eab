@@ -2,7 +2,7 @@ import argparse
 
 import gym
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.deepq import DQN
+from ..deepq import DQN
 
 
 def main(args):

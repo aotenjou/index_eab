@@ -6,8 +6,8 @@ import gym
 import tensorflow as tf
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.mpi_running_mean_std import RunningMeanStd
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import tf_util as tf_util
+from ..common.mpi_running_mean_std import RunningMeanStd
+from ..common import tf_util as tf_util
 
 
 def logsigmoid(input_tensor):

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import warnings
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger, ACER
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import CnnPolicy, CnnLstmPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import make_atari_env, atari_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecFrameStack
+from . import logger, ACER
+from ..common.policies import CnnPolicy, CnnLstmPolicy
+from ..common.cmd_util import make_atari_env, atari_arg_parser
+from ..common.vec_env import VecFrameStack
 
 
 def train(env_id, num_timesteps, seed, policy, lr_schedule, num_cpu):

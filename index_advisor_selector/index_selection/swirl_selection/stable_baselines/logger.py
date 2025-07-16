@@ -14,7 +14,7 @@ from tensorflow.python import pywrap_tensorflow
 from tensorflow.core.util import event_pb2
 from tensorflow.python.util import compat
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import mpi_rank_or_zero
+from ..common.misc_util import mpi_rank_or_zero
 
 DEBUG = 10
 INFO = 20

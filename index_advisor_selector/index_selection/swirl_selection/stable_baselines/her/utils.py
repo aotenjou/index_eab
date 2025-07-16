@@ -49,7 +49,7 @@ class HERGoalEnvWrapper(object):
         elif isinstance(self.spaces[0], spaces.Box):
             lows = np.concatenate([space.low for space in self.spaces])
             highs = np.concatenate([space.high for space in self.spaces])
-            self.observation_space = spaces.Box(lows, highs, dtype=np.float32)
+            self.observation_space = spaces.Box(lows, highs, dtype=float32)
 
         elif isinstance(self.spaces[0], spaces.Discrete):
             dimensions = [env.observation_space.spaces[key].n for key in KEY_ORDER]

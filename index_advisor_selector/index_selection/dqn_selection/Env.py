@@ -36,8 +36,8 @@ class Env:
         self.init_cost_sum = self.init_cost.sum()
 
         # (0808): to be modified.
-        # self.init_state = np.append(self.init_cost, np.zeros((len(candidates),), dtype=np.float))
-        self.init_state = np.append(self.frequencies, np.zeros((len(candidates),), dtype=np.float))
+        # self.init_state = np.append(self.init_cost, np.zeros((len(candidates),), dtype=float))
+        self.init_state = np.append(self.frequencies, np.zeros((len(candidates),), dtype=float))
 
         self.last_state = self.init_state
         self.last_cost = self.init_cost
@@ -45,7 +45,7 @@ class Env:
 
         # utility info
         self.current_index_count = 0
-        self.current_index = np.zeros((len(candidates),), dtype=np.float)
+        self.current_index = np.zeros((len(candidates),), dtype=float)
 
         # monitor info
         self.cost_trace_overall = list()
@@ -126,12 +126,12 @@ class Env:
         self.last_cost_sum = self.init_cost_sum
 
         # (0813): unused.
-        self.performance_gain = np.zeros((len(self.candidates),), dtype=np.float)
+        self.performance_gain = np.zeros((len(self.candidates),), dtype=float)
 
         self.current_index_count = 0
         # (0818): newly added.
         self.current_storage_sum = 0
-        self.current_index = np.zeros((len(self.candidates),), dtype=np.float)
+        self.current_index = np.zeros((len(self.candidates),), dtype=float)
         self.pg_client1.delete_indexes()
 
         if len(self.pre_create) > 0:

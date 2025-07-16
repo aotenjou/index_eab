@@ -53,7 +53,7 @@ def run_gen_cands(conf_load, data_load, data_save):
 
         workload = list()
         for item in data:
-            if isinstance(item, dict):
+            if isinstance(item, dict): # 类型判断说是
                 if "workload" in item.keys():
                     workload.extend(item["workload"])
                 elif "sql" in item.keys():
@@ -73,7 +73,7 @@ def run_gen_cands(conf_load, data_load, data_save):
 
     # workload = ["select char_name.id, complete_cast.status_id, cast_info.role_id, title.season_nr, sum(complete_cast.movie_id) from char_name JOIN cast_info ON cast_info.person_role_id = char_name.id JOIN title ON title.id = cast_info.movie_id JOIN complete_cast ON complete_cast.movie_id = title.id where char_name.surname_pcode = 'A13' AND complete_cast.subject_id > 2 group by char_name.id, complete_cast.status_id, title.season_nr, cast_info.role_id having sum(complete_cast.movie_id) = 2427152"]
 
-    workload = [workload[3]]
+    # workload = [workload[3]] #何意味？
 
     cands = gen_work_cands(workload, parser)
 
@@ -85,27 +85,27 @@ def run_gen_cands(conf_load, data_load, data_save):
 
 
 if __name__ == "__main__":
-    conf_load = "/data/wz/index/code_aidb/IndexAdvisor/configure.ini"
-    conf_load = "/data/wz/index/index_eab/eab_data/db_info_conf/local_db103_tpch_1gb.conf"
+    conf_load = "/home/azrmedit0x/Index_EAB/configuration_loader/database/db_con.conf"
+    # conf_load = "/data/wz/index/index_eab/eab_data/db_info_conf/local_db103_tpch_1gb.conf"
 
-    conf_load = "/data/wz/index/index_eab/eab_data/db_info_conf/local_db103_job.conf"
+    # conf_load = "/data/wz/index/index_eab/eab_data/db_info_conf/local_db103_job.conf"
     config_raw = ConfigParser()
     config_raw.read(conf_load)
 
 
-    data_load = "/data/wz/index/code_aidb/IndexAdvisor/Entry/workload.pickle"
-    data_load = "/data/wz/index/attack/data_resource/bench_template/job_template_113.sql"
-    # data_load = "/data/wz/index/attack/data_resource/bench_template/tpcds_template_99.sql"
-    data_load = "/data/wz/index/index_eab/eab_olap/bench_temp/job/job_template_33_multi_work.json"
-
-    data_load = "/data/wz/index/index_eab/eab_olap/bench_temp/tpcds/tpcds_temp_multi_query_n3000.json"
-    data_load = "/data/wz/index/index_eab/eab_olap/bench_temp/tpch/tpch_work_temp_duplicate_multi_w18_n1000.json"
-
-    data_save = "/data/wz/index/code_aidb/IndexAdvisor/Entry/cands_tpch.pickle"
-
-    data_load = "/data/wz/index/index_eab/eab_oltp/bench_temp/tpcc/tpcc_1gb_read_work_n5_test.json"
-
-    data_load = "/data/wz/index/index_eab/eab_olap/bench_random/job/job_work_random_duplicate_multi_w33_n3000.json"
-
-    data_load = "/data/wz/index/index_eab/eab_olap/bench_random/job/job_work_multi_w33_n100_test.json"
+    data_load = "/home/azrmedit0x/Index_EAB/workload_generator/local/r1000_gt500_5q_300.workload.json"
+    # data_load = "/data/wz/index/attack/data_resource/bench_template/job_template_113.sql"
+    # # data_load = "/data/wz/index/attack/data_resource/bench_template/tpcds_template_99.sql"
+    # data_load = "/data/wz/index/index_eab/eab_olap/bench_temp/job/job_template_33_multi_work.json"
+    #
+    # data_load = "/data/wz/index/index_eab/eab_olap/bench_temp/tpcds/tpcds_temp_multi_query_n3000.json"
+    # data_load = "/data/wz/index/index_eab/eab_olap/bench_temp/tpch/tpch_work_temp_duplicate_multi_w18_n1000.json"
+    #
+    data_save = "/home/azrmedit0x/Index_EAB/workload_generator/local/cands_jobs.pickle"
+    #
+    # data_load = "/data/wz/index/index_eab/eab_oltp/bench_temp/tpcc/tpcc_1gb_read_work_n5_test.json"
+    #
+    # data_load = "/data/wz/index/index_eab/eab_olap/bench_random/job/job_work_random_duplicate_multi_w33_n3000.json"
+    #
+    # data_load = "/data/wz/index/index_eab/eab_olap/bench_random/job/job_work_multi_w33_n100_test.json"
     run_gen_cands(config_raw, data_load, data_save)

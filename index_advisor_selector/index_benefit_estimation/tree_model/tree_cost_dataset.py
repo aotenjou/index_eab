@@ -115,9 +115,9 @@ class PlanPairDataset(Dataset):
         if self.feat_chan in ["seq_ind"]:
             data_type = np.int32
         else:
-            data_type = np.float32
+            data_type = float32
 
-        return np.array(feat, dtype=data_type), np.array(label, dtype=np.float32)
+        return np.array(feat, dtype=data_type), np.array(label, dtype=float32)
 
     def __len__(self):
         return len(self.plan_data)

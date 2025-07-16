@@ -15,8 +15,8 @@ from .constants import tpch_tables, tpcds_tables, job_table_alias
 
 from .cost_evaluation import CostEvaluation
 
-import index_advisor_selector.index_selection.dqn_selection.dqn_utils.Encoding as en
-import index_advisor_selector.index_selection.dqn_selection.dqn_utils.ParserForIndex as pi
+from ..dqn_selection.dqn_utils import Encoding as en
+from ..dqn_selection.dqn_utils import ParserForIndex as pi
 
 excluded_qno = {"tpch": [20 - 1, 17 - 1, 18 - 1],
                 "tpcds": [2, 29, 36, 56, 87, 89, 95,

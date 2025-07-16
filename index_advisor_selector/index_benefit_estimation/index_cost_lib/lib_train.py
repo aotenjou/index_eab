@@ -5,7 +5,14 @@
 # @Time: 2023/6/7 20:50
 
 import os
+import sys
 # os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+
+# 添加项目根目录到Python路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, '..', '..', '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 from csv import reader
 
@@ -22,10 +29,24 @@ from torch.nn import MSELoss
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import random_split, DataLoader
 from torch.utils.tensorboard import SummaryWriter
+import torch.nn.functional as F
 
-from index_advisor_selector.index_benefit_estimation.index_cost_lib.utils import lib_com
-from index_advisor_selector.index_benefit_estimation.index_cost_lib.lib_data import collate_fn4lib
-from index_advisor_selector.index_benefit_estimation.index_cost_lib.lib_model import make_model, self_attn_model, q_error
+# 尝试导入模块，如果失败则使用相对导入
+try:
+    from index_advisor_selector.index_benefit_estimation.index_cost_lib.utils import lib_com
+    from index_advisor_selector.index_benefit_estimation.index_cost_lib.lib_data import collate_fn4lib
+    from index_advisor_selector.index_benefit_estimation.index_cost_lib.lib_model import make_model, self_attn_model, q_error
+except ImportError:
+    # 如果绝对导入失败，尝试相对导入
+    try:
+        from .utils import lib_com
+        from .lib_data import collate_fn4lib
+        from .lib_model import make_model, self_attn_model, q_error
+    except ImportError:
+        # 如果相对导入也失败，尝试直接导入
+        import utils.lib_com as lib_com
+        from lib_data import collate_fn4lib
+        from lib_model import make_model, self_attn_model, q_error
 
 
 def get_parser():
@@ -42,39 +63,39 @@ def get_parser():
                         default="./data/TPC_DS_10_by_query.csv")
 
     # 1. tpch
-    parser.add_argument("--train_data_file", type=str,
-                        default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/tpch/lib_tpch_cost_data_tgt_train.json")
-    parser.add_argument("--valid_data_file", type=str,
-                        default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/tpch/lib_tpch_cost_data_tgt_valid.json")
-    parser.add_argument("--test_data_file", type=str,
-                        default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/tpch/lib_tpch_cost_data_tgt_test.json")
-
-    parser.add_argument("--model_load", type=str, default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/exp_res/exp_lib_tpch_tgt_ep500_bat2048/model/lib_LIB_200.pt",
-                        help="the path to the saved model")
+    # parser.add_argument("--train_data_file", type=str,
+    #                     default="../../../data/tpch/lib_tpch_cost_data_tgt_train.json")
+    # parser.add_argument("--valid_data_file", type=str,
+    #                     default="../../../data/tpch/lib_tpch_cost_data_tgt_valid.json")
+    # parser.add_argument("--test_data_file", type=str,
+    #                     default="../../../data/tpch/lib_tpch_cost_data_tgt_test.json")
+    #
+    # parser.add_argument("--model_load", type=str, default="./exp_res/exp_lib_tpch_tgt_ep500_bat2048/model/lib_LIB_200.pt",
+    #                     help="the path to the saved model")
 
     # 2. tpcds
     # parser.add_argument("--train_data_file", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/tpcds/lib_tpcds_cost_data_tgt_train.json")
+    #                     default="../../../data/tpcds/lib_tpcds_cost_data_tgt_train.json")
     # parser.add_argument("--valid_data_file", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/tpcds/lib_tpcds_cost_data_tgt_valid.json")
+    #                     default="../../../data/tpcds/lib_tpcds_cost_data_tgt_valid.json")
     # parser.add_argument("--test_data_file", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/tpcds/lib_tpcds_cost_data_tgt_test.json")
+    #                     default="../../../data/tpcds/lib_tpcds_cost_data_tgt_test.json")
     #
     # parser.add_argument("--model_load", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/exp_res/exp_lib_tpcds_tgt_ep500_bat2048/model/lib_LIB_200.pt",
+    #                     default="./exp_res/exp_lib_tpcds_tgt_ep500_bat2048/model/lib_LIB_200.pt",
     #                     help="the path to the saved model")
 
-    # 3. job
-    # parser.add_argument("--train_data_file", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/job/lib_job_cost_data_tgt_train.json")
-    # parser.add_argument("--valid_data_file", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/job/lib_job_cost_data_tgt_valid.json")
-    # parser.add_argument("--test_data_file", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/data/job/lib_job_cost_data_tgt_test.json")
-    #
-    # parser.add_argument("--model_load", type=str,
-    #                     default="/data/wz/index/index_eab/eab_benefit/index_cost_lib/exp_res/exp_lib_job_tgt_ep500_bat1024/model/lib_LIB_200.pt",
-    #                     help="the path to the saved model")
+    # 3. job (默认启用JOB数据集)
+    parser.add_argument("--train_data_file", type=str,
+                        default="/home/azrmedit0x/Index_EAB/workload_generator/local/lib/lib_job_cost_data_tgt_train.json")
+    parser.add_argument("--valid_data_file", type=str,
+                        default="/home/azrmedit0x/Index_EAB/workload_generator/local/lib/lib_job_cost_data_tgt_valid.json")
+    parser.add_argument("--test_data_file", type=str,
+                        default="/home/azrmedit0x/Index_EAB/workload_generator/local/lib/lib_job_cost_data_tgt_test.json")
+
+    parser.add_argument("--model_load", type=str,
+                        default="./exp_res/exp_lib_job_tgt_ep500_bat1024/model/lib_LIB_200.pt",
+                        help="the path to the saved model")
 
     parser.add_argument("--runlog", type=str,
                         default="./exp_res/{}/exp_runtime.log")
@@ -87,8 +108,8 @@ def get_parser():
     parser.add_argument("--model_save_gap", type=int, default=10)
 
     # running params.
-    parser.add_argument("--epoch_num", type=int, default=500, help="number of the training epoch")
-    parser.add_argument("--batch_size", type=int, default=1024, help="value of the mini batch-size")
+    parser.add_argument("--epoch_num", type=int, default=50, help="number of the training epoch")
+    parser.add_argument("--batch_size", type=int, default=128, help="value of the mini batch-size")
     parser.add_argument("--lr", type=float, default=0.001, help="value of the learning rate")
 
     # model params.
@@ -147,16 +168,16 @@ def train(args):
 
     # model.load_state_dict(torch.load(args.model_path))
     if os.path.exists(args.model_load):
-        checkpoint = torch.load(args.model_load, map_location="cpu")
+        checkpoint = torch.load(args.model_load, map_location="cpu", weights_only=False)
         model.load_state_dict(checkpoint["model"])
 
     model = model.to(device)
-    criterion = MSELoss()
     criterion = q_error
+    mse_criterion = torch.nn.MSELoss()
 
     optimizer = torch.optim.Adam(model.parameters(), args.lr)
     scheduler = ReduceLROnPlateau(optimizer, "min", factor=0.5,
-                                  patience=10, min_lr=1e-5, verbose=True)
+                                  patience=10, min_lr=1e-5)
 
     # model = torch.nn.DataParallel(model)
     # model.cuda()
@@ -174,6 +195,7 @@ def train(args):
 
         model.train()
         total_loss = 0
+        total_mse = 0
         pro_bar = tqdm(enumerate(train_loader))
         for bi, batch in pro_bar:
             pro_bar.set_description(f"Epoch [{epoch}/{args.epoch_num}]")
@@ -184,24 +206,28 @@ def train(args):
             pred_rr = model(pad_data, mask)
 
             loss = criterion(label, pred_rr)
+            mse = mse_criterion(pred_rr, label)
 
-            # optimizer.zero_grad()
             loss.backward()
             optimizer.step()
             # : newly added, scheduler.
             # scheduler.step(loss)
 
             total_loss += loss.item()
-            pro_bar.set_postfix(train_loss=total_loss / (bi + 1))
+            total_mse += mse.item()
+            pro_bar.set_postfix(train_loss=total_loss / (bi + 1), train_mse=total_mse / (bi + 1))
 
             lib_com.add_summary_value("train loss", loss.item())
+            lib_com.add_summary_value("train mse", mse.item())
             lib_com.tf_step += 1
             if lib_com.tf_step % 100 == 0:
                 lib_com.summary_writer.flush()
         logging.info(f"The final train loss of EP{epoch} is: {total_loss / (bi + 1)}.")
+        logging.info(f"The final train mse of EP{epoch} is: {total_mse / (bi + 1)}.")
 
         model.eval()
         total_loss = 0
+        total_mse = 0
         pro_bar = tqdm(enumerate(valid_loader))
         for bi, batch in pro_bar:
             pro_bar.set_description(f"Epoch [{epoch}/{args.epoch_num}]")
@@ -211,11 +237,14 @@ def train(args):
             pred_rr = model(pad_data, mask)
 
             loss = criterion(label, pred_rr)
+            mse = mse_criterion(pred_rr, label)
 
             total_loss += loss.item()
-            pro_bar.set_postfix(valid_loss=total_loss / (bi + 1))
+            total_mse += mse.item()
+            pro_bar.set_postfix(valid_loss=total_loss / (bi + 1), valid_mse=total_mse / (bi + 1))
 
             lib_com.add_summary_value("valid loss", loss.item())
+            lib_com.add_summary_value("valid mse", mse.item())
             lib_com.tf_step += 1
             if lib_com.tf_step % 100 == 0:
                 lib_com.summary_writer.flush()
@@ -224,6 +253,7 @@ def train(args):
         scheduler.step(total_loss / (bi + 1))
 
         logging.info(f"The final valid loss of EP{epoch} is: {total_loss / (bi + 1)}.")
+        logging.info(f"The final valid mse of EP{epoch} is: {total_mse / (bi + 1)}.")
 
         model_state_dict = model.state_dict()
         model_source = {

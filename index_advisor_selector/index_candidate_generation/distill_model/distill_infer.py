@@ -66,7 +66,7 @@ def eval_model():
         args.scale_load = "/data1/wz/index/index_eab/eab_other/distill_model/cost_exp_res/exp_rf_job_round5k/data/train_scale_data.pt"
 
         scaler = torch.load(args.scale_load)
-        X_test = np.array(scaler.transform(X_test), dtype=np.float32)
+        X_test = np.array(scaler.transform(X_test), dtype=float32)
 
         # args.model_type = "XGBoost"
         # args.model_load = "/data1/wz/index/index_eab/eab_other/distill_model/cost_exp_res/exp_xgb_job_round5k/model/reg_xgb_cost.xgb.model"

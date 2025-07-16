@@ -67,7 +67,7 @@ import tensorflow._api.v2.compat.v1 as tf
 tf.disable_v2_behavior()
 from gym.spaces import MultiDiscrete
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import tf_util
+from ..common import tf_util
 
 
 def scope_vars(scope, trainable_only=False):

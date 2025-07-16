@@ -71,9 +71,9 @@ class PlanPairDataset(Dataset):
 
         label = item["label act"]
 
-        # data_type = np.float32  # np.int32, np.float32
+        # data_type = float32  # np.int32, float32
 
-        # return np.array(feat, dtype=data_type), np.array(label, dtype=np.float32)
+        # return np.array(feat, dtype=data_type), np.array(label, dtype=float32)
         return feat, label
 
     def __len__(self):

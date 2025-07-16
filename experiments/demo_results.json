@@ -1,0 +1,9 @@
+{
+  "data_count": 50,
+  "avg_operations": 1.9,
+  "avg_cost_reduction": 0.4045020841185303,
+  "final_loss": 1.3204006583376655,
+  "mean_qerror": 1.0891572761522315,
+  "median_qerror": 1.0762068927892499,
+  "status": "success"
+}

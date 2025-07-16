@@ -1,8 +1,8 @@
 import tensorflow as tf
 from gym.spaces import Box
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import BasePolicy, nature_cnn, register_policy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_layers import mlp
+from ..common.policies import BasePolicy, nature_cnn, register_policy
+from ..common.tf_layers import mlp
 
 
 class TD3Policy(BasePolicy):

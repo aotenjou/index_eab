@@ -1,7 +1,7 @@
 """
 Simple test to check that PPO1 is running with no errors (see issue #50)
 """
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import PPO1
+from . import PPO1
 
 
 if __name__ == '__main__':

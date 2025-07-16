@@ -41,7 +41,7 @@ class BitFlippingEnv(GoalEnv):
         self.obs_space = spaces.MultiBinary(n_bits)
 
         if continuous:
-            self.action_space = spaces.Box(-1, 1, shape=(n_bits,), dtype=np.float32)
+            self.action_space = spaces.Box(-1, 1, shape=(n_bits,), dtype=float32)
         else:
             self.action_space = spaces.Discrete(n_bits)
         self.continuous = continuous

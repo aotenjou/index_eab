@@ -6,14 +6,14 @@ import tensorflow as tf
 from gym.spaces import Discrete, Box
 from collections import deque
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import Scheduler
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util import batch_to_seq, seq_to_batch, \
+from . import logger
+from ..common.schedules import Scheduler
+from ..common.tf_util import batch_to_seq, seq_to_batch, \
     check_shape, avg_norm, gradient_add, q_explained_variance, total_episode_reward_logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.acer.buffer import Buffer
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import ActorCriticRLModel, tf_util, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.runners import AbstractEnvRunner
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy
+from ..acer.buffer import Buffer
+from ..common import ActorCriticRLModel, tf_util, SetVerbosity, TensorboardWriter
+from ..common.runners import AbstractEnvRunner
+from ..common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy
 
 
 # For ACER
@@ -706,7 +706,7 @@ class _Runner(AbstractEnvRunner):
                 self.batch_ob_shape = (n_env * (n_steps + 1),)
             else:
                 self.batch_ob_shape = (n_env * (n_steps + 1), self.obs_dim)
-            self.obs_dtype = np.float32
+            self.obs_dtype = float32
 
         self.n_steps = n_steps
         self.states = model.initial_state
@@ -756,8 +756,8 @@ class _Runner(AbstractEnvRunner):
         enc_obs = np.asarray(enc_obs, dtype=self.obs_dtype).swapaxes(1, 0)
         mb_obs = np.asarray(mb_obs, dtype=self.obs_dtype).swapaxes(1, 0)
         mb_actions = np.asarray(mb_actions, dtype=np.int64).swapaxes(1, 0)
-        mb_rewards = np.asarray(mb_rewards, dtype=np.float32).swapaxes(1, 0)
-        mb_mus = np.asarray(mb_mus, dtype=np.float32).swapaxes(1, 0)
+        mb_rewards = np.asarray(mb_rewards, dtype=float32).swapaxes(1, 0)
+        mb_mus = np.asarray(mb_mus, dtype=float32).swapaxes(1, 0)
         mb_dones = np.asarray(mb_dones, dtype=np.bool).swapaxes(1, 0)
 
         mb_masks = mb_dones  # Used for statefull models like LSTM's to mask state when done

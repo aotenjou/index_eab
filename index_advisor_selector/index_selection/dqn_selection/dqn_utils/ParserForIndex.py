@@ -198,20 +198,52 @@ class Parser:
                 self.parse_range_subselect(subselect)
             # (1117): newly added.
             else:
-                tbl_names = re.findall(r"'RangeVar': \{'relname': '(.*?)',", str(_table))
-                for name in tbl_names:
-                    # (1126): newly added.
-                    if name not in self.db_info.keys():
-                        continue
+                # 尝试从其他可能的格式中提取表名
+                if 'JoinExpr' in _table.keys():
+                    # 处理JOIN表达式
+                    join_expr = _table['JoinExpr']
+                    if 'larg' in join_expr:
+                        self.parse_from_clause([join_expr['larg']])
+                    if 'rarg' in join_expr:
+                        self.parse_from_clause([join_expr['rarg']])
+                elif 'RangeVar' in str(_table):
+                    # 尝试从字符串中提取RangeVar
+                    range_var_match = re.search(r"'RangeVar': \{([^}]+)\}", str(_table))
+                    if range_var_match:
+                        range_var_str = range_var_match.group(1)
+                        table_name_match = re.search(r"'relname': '([^']+)'", range_var_str)
+                        if table_name_match:
+                            name = table_name_match.group(1)
+                            if name in self.db_info.keys() and name not in self.table_info:
+                                self.table_info[name] = Table(name, name, True)
+                                self.table_info[name].set_columns(self.db_info[name])
+                else:
+                    # 尝试其他可能的表引用格式
+                    tbl_names = re.findall(r"'RangeVar': \{'relname': '(.*?)',", str(_table))
+                    for name in tbl_names:
+                        # (1126): newly added.
+                        if name not in self.db_info.keys():
+                            continue
 
-                    self.table_info[name] = Table(name, name, True)
-                    self.table_info[name].set_columns(self.db_info[name])
+                        self.table_info[name] = Table(name, name, True)
+                        self.table_info[name].set_columns(self.db_info[name])
+                    
+                    # 如果没有找到表名，尝试其他格式
+                    if not tbl_names:
+                        # 尝试从字符串中提取表名
+                        # 查找可能的表名模式
+                        possible_tables = re.findall(r"'relname': '(.*?)'", str(_table))
+                        for name in possible_tables:
+                            if name not in self.db_info.keys():
+                                continue
+                            if name not in self.table_info:
+                                self.table_info[name] = Table(name, name, True)
+                                self.table_info[name].set_columns(self.db_info[name])
 
     def is_original_column(self, t_n, col_name):
         table_name = t_n
         if table_name == "":
             for t in self.table_info.keys():
-                columns = self.table_info[t].columns.keys()
                 if col_name in self.table_info[t].columns.keys():
                     return t, self.table_info[t].columns[col_name].is_origin
         else:
@@ -292,15 +324,16 @@ class Parser:
                 etype == 1 or etype == 0) and not is_in_or:
             if etype == 0:
                 # table_name, _type, value_type, otherside):
-                c_l = Condition(table_name1, "join", col_name1, "", table_name2 + "#@#" + col_name2)
-                c_r = Condition(table_name2, "join", col_name2, "", table_name1 + "#@#" + col_name1)
-                self.table_info[table_name1].join_conditions.append(c_l)
-                self.table_info[table_name2].join_conditions.append(c_r)
+                if table_name1 in self.table_info and table_name2 in self.table_info:
+                    c_l = Condition(table_name1, "join", col_name1, "", table_name2 + "#@#" + col_name2)
+                    c_r = Condition(table_name2, "join", col_name2, "", table_name1 + "#@#" + col_name1)
+                    self.table_info[table_name1].join_conditions.append(c_l)
+                    self.table_info[table_name2].join_conditions.append(c_r)
             else:
-                if etype1 == 0:
+                if etype1 == 0 and table_name1 in self.table_info:
                     c = Condition(table_name1, op, col_name1, value_type2, value2)
                     self.table_info[table_name1].conditions.append(c)
-                else:
+                elif etype2 == 0 and table_name2 in self.table_info:
                     c = Condition(table_name2, op, col_name2, value_type1, value1)
                     self.table_info[table_name2].conditions.append(c)
 
@@ -348,7 +381,8 @@ class Parser:
             table_name, is_or = self.is_original_column('', col_name)
             if table_name == "":
                 return
-            self.table_info[table_name].add_used_column(col_name)
+            if table_name in self.table_info:
+                self.table_info[table_name].add_used_column(col_name)
         else:
             table_name = column_info['fields'][0]['String']['str']
             col_name = column_info['fields'][1]['String']['str']
@@ -392,6 +426,8 @@ class Parser:
                     else:
                         col_name1 = column_ref['fields'][1]['String']['str']
                         table_name1 = column_ref['fields'][0]['String']['str']
+                        if table_name1 not in self.table_info:
+                            return
                         if not self.table_info[table_name1].is_origin:
                             return
                         self.table_info[table_name1].add_used_column(col_name1)
@@ -412,6 +448,8 @@ class Parser:
                     else:
                         col_name1 = column_ref['fields'][1]['String']['str']
                         table_name1 = column_ref['fields'][0]['String']['str']
+                        if table_name1 not in self.table_info:
+                            return
                         if table_name1 != which_table:
                             return
                         if not self.table_info[table_name1].is_origin:
@@ -421,7 +459,8 @@ class Parser:
                         index += 1
             else:
                 return
-        self.table_info[which_table].group = columns
+        if which_table in self.table_info:
+            self.table_info[which_table].group = columns
 
     def parse_sort_clause(self, sort):
         which_table = ""
@@ -444,7 +483,9 @@ class Parser:
                         else:
                             col_name1 = column_ref['fields'][1]['String']['str']
                             table_name1 = column_ref['fields'][0]['String']['str']
-                            if table_name1 not in self.table_info or not self.table_info[table_name1].is_origin:
+                            if table_name1 not in self.table_info:
+                                return
+                            if not self.table_info[table_name1].is_origin:
                                 return
                             self.table_info[table_name1].add_used_column(col_name1)
                             columns[col_name1] = index
@@ -464,6 +505,8 @@ class Parser:
                         else:
                             col_name1 = column_ref['fields'][1]['String']['str']
                             table_name1 = column_ref['fields'][0]['String']['str']
+                            if table_name1 not in self.table_info:
+                                return
                             if table_name1 != which_table:
                                 return
                             if not self.table_info[table_name1].is_origin:

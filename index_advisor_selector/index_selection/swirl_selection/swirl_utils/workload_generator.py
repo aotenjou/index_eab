@@ -6,18 +6,18 @@ from typing import Optional, Set, Dict, List
 from typing_extensions import Literal
 import numpy as np
 
-import swirl_utils.embedding_utils as embedding_utils
-import index_benefit_estimation.benefit_utils.postgres_dbms as postgres_dbms
-import index_advisor_selector.index_candidate_generation.distill_model.distill_utils.distill_workload as distill_workload
-from candidate_generation import (
+from . import embedding_utils
+from ..index_benefit_estimation.benefit_utils import postgres_dbms
+from ..index_candidate_generation.distill_model.distill_utils import distill_workload
+from .candidate_generation import (
     candidates_per_query,
     syntactically_relevant_indexes,
 )
-from cost_evaluation import CostEvaluation
-from index_candidate_generation.distill_model import distill_model
-from postgres_dbms import PostgresDatabaseConnector
-from utils import get_utilized_indexes
-from index_candidate_generation.distill_model.distill_utils.distill_workload import Query as OldQuery  # 原始Query重命名
+from .cost_evaluation import CostEvaluation
+from ..index_candidate_generation.distill_model import distill_model
+from .postgres_dbms import PostgresDatabaseConnector
+from .utils import get_utilized_indexes
+from ..index_candidate_generation.distill_model.distill_utils.distill_workload import Query as OldQuery  # 原始Query重命名
 
 QUERY_PATH = "query_files"
 from .workload_embedder import WorkloadEmbedder

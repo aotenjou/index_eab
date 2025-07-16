@@ -6,9 +6,9 @@ import logging
 from .workload import Workload
 from .what_if_index_creation import WhatIfIndexCreation
 
-from index_advisor_selector.index_benefit_estimation.tree_model.tree_cost_infer import load_model_tree, get_tree_est_res
-from index_advisor_selector.index_benefit_estimation.index_cost_lib.lib_infer import load_model_lib, get_lib_est_res
-from index_advisor_selector.index_benefit_estimation.query_former.former_infer import load_model_former, get_former_est_res
+from ...index_benefit_estimation.tree_model.tree_cost_infer import load_model_tree, get_tree_est_res
+from ...index_benefit_estimation.index_cost_lib.lib_infer import load_model_lib, get_lib_est_res
+from ...index_benefit_estimation.query_former.former_infer import load_model_former, get_former_est_res
 
 
 class CostEvaluation:

@@ -19,7 +19,7 @@ def get_parser():
         description="The ISP solved by MAB.")
 
     parser.add_argument("--exp_id", type=str, default="mab_new_exp")
-    parser.add_argument("--bench", type=str, default="tpch",
+    parser.add_argument("--bench", type=str, default="job",
                         choices=["tpch", "tpch_skew", "tpcds", "dsb", "job"])
     parser.add_argument("--rounds", type=int, default=100)
     parser.add_argument("--min_rounds", type=int, default=50)
@@ -34,11 +34,11 @@ def get_parser():
     parser.add_argument("--early_stopping", type=int, default=10)
 
     parser.add_argument("--exp_file", type=str,
-                        default="/data/wz/index/index_eab/eab_algo/mab_selection/config/exp.conf")
+                        default="/home/azrmedit0x/Index_EAB/configuration_loader/index_advisor/rl_run_conf/mab_config.conf")
     parser.add_argument("--db_file", type=str,
-                        default="/data/wz/index/index_eab/eab_algo/mab_selection/config/db.conf")
+                        default="/home/azrmedit0x/Index_EAB/configuration_loader/database/db_con.conf")
     parser.add_argument("--workload_file", type=str,
-                        default="/data/wz/index/index_eab/eab_olap/bench_temp/tpch_template_18.sql")
+                        default="/data/wz/index/index_eab/eab_olap/bench_temp/tpch_template_18.sql")# TODO:构建sql格式的负载。
     parser.add_argument("--schema_file", type=str,
                         default="/data/wz/index/index_eab/eab_data/db_info_conf/schema_tpch_1gb.json")
     parser.add_argument("--res_save", type=str,

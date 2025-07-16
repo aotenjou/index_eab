@@ -7,12 +7,12 @@ import warnings
 
 import gym
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.bench import Monitor
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import set_global_seeds
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.atari_wrappers import make_atari, wrap_deepmind
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import mpi_rank_or_zero
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import DummyVecEnv, SubprocVecEnv
+from . import logger
+from ..bench import Monitor
+from ..common.misc_util import set_global_seeds
+from ..common.atari_wrappers import make_atari, wrap_deepmind
+from ..common.misc_util import mpi_rank_or_zero
+from ..common.vec_env import DummyVecEnv, SubprocVecEnv
 
 
 def make_vec_env(env_id, n_envs=1, seed=None, start_index=0,

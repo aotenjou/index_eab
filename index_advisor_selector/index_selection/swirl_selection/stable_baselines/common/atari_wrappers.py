@@ -233,12 +233,12 @@ class FrameStack(gym.Wrapper):
 class ScaledFloatFrame(gym.ObservationWrapper):
     def __init__(self, env):
         gym.ObservationWrapper.__init__(self, env)
-        self.observation_space = spaces.Box(low=0, high=1.0, shape=env.observation_space.shape, dtype=np.float32)
+        self.observation_space = spaces.Box(low=0, high=1.0, shape=env.observation_space.shape, dtype=float32)
 
     def observation(self, observation):
         # careful! This undoes the memory optimization, use
         # with smaller replay buffers only.
-        return np.array(observation).astype(np.float32) / 255.0
+        return np.array(observation).astype(float32) / 255.0
 
 
 class LazyFrames(object):

@@ -108,8 +108,8 @@ if args.feat_chan in ["cost", "row", "cost_row"]:
     scaler.fit(X_train)
     torch.save(scaler, args.data_save.format(args.exp_id, "train_scale"))
     # Scale features of X according to feature_range
-    X_train = np.array(scaler.transform(X_train), dtype=np.float32)
-    X_valid = np.array(scaler.transform(X_valid), dtype=np.float32)
+    X_train = np.array(scaler.transform(X_train), dtype=float32)
+    X_valid = np.array(scaler.transform(X_valid), dtype=float32)
 
 # normalize the label.
 # min_card_log = np.min([np.log(y) for y in y_train])  # -16.997074
@@ -121,7 +121,7 @@ if args.feat_chan in ["cost", "row", "cost_row"]:
 y_train = [np.log(y) for y in y_train]
 y_valid = [np.log(y) for y in y_valid]
 
-y_train, y_valid = np.array(y_train, dtype=np.float32), np.array(y_valid, dtype=np.float32)
+y_train, y_valid = np.array(y_train, dtype=float32), np.array(y_valid, dtype=float32)
 
 # : 6. create the train/valid data loader.
 train_set, valid_set = list(zip(X_train, y_train)), list(zip(X_valid, y_valid))

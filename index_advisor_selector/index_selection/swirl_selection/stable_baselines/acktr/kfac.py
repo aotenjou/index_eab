@@ -4,7 +4,7 @@ from functools import reduce
 import tensorflow as tf
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.acktr.kfac_utils import detect_min_val, factor_reshape, gmatmul
+from ..acktr.kfac_utils import detect_min_val, factor_reshape, gmatmul
 
 KFAC_OPS = ['MatMul', 'Conv2D', 'BiasAdd']
 KFAC_DEBUG = False

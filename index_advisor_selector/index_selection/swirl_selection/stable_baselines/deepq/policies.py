@@ -8,7 +8,7 @@ import tensorflow.keras.layers as tf_layers
 import numpy as np
 from gym.spaces import Discrete
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import BasePolicy, nature_cnn, original_nature_cnn, nature_cnn2, \
+from ..common.policies import BasePolicy, nature_cnn, original_nature_cnn, nature_cnn2, \
     register_policy
 
 
@@ -42,10 +42,10 @@ class DQNPolicy(BasePolicy):
 
         if isinstance(ac_space, Discrete):
             with tf.variable_scope("input", reuse=False):
-                no_mask = tf.zeros_like(np.zeros(shape=(1, self.n_actions), dtype=np.float32))
+                no_mask = tf.zeros_like(np.zeros(shape=(1, self.n_actions), dtype=float32))
                 self._action_mask_ph = tf.placeholder_with_default(no_mask, shape=(n_batch, self.n_actions),
                                                                    name="action_mask_ph")
-                no_mask_prob = tf.ones_like(np.ones(shape=(1, self.n_actions), dtype=np.float32))
+                no_mask_prob = tf.ones_like(np.ones(shape=(1, self.n_actions), dtype=float32))
                 self._action_mask_probs_ph = tf.placeholder_with_default(no_mask_prob, shape=(n_batch, self.n_actions),
                                                                          name="action_mask_probs_ph")
 

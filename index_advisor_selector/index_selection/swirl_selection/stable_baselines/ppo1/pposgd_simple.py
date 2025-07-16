@@ -6,17 +6,17 @@ import numpy as np
 import tensorflow as tf
 from mpi4py import MPI
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import Dataset, explained_variance, fmt_row, zipsame, ActorCriticRLModel, SetVerbosity, \
+from ..common import Dataset, explained_variance, fmt_row, zipsame, ActorCriticRLModel, SetVerbosity, \
     TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
+from . import logger
 import index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util as tf_util
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util import total_episode_reward_logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import ActorCriticPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.mpi_adam import MpiAdam
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.mpi_moments import mpi_moments
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import flatten_lists
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.runners import traj_segment_generator
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.trpo_mpi.utils import add_vtarg_and_adv
+from ..common.tf_util import total_episode_reward_logger
+from ..common.policies import ActorCriticPolicy
+from ..common.mpi_adam import MpiAdam
+from ..common.mpi_moments import mpi_moments
+from ..common.misc_util import flatten_lists
+from ..common.runners import traj_segment_generator
+from ..trpo_mpi.utils import add_vtarg_and_adv
 
 
 class PPO1(ActorCriticRLModel):

@@ -3,8 +3,8 @@ import warnings
 
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.base_vec_env import VecEnvWrapper
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.running_mean_std import RunningMeanStd
+from ..common.vec_env.base_vec_env import VecEnvWrapper
+from ..common.running_mean_std import RunningMeanStd
 
 
 class VecNormalize(VecEnvWrapper):

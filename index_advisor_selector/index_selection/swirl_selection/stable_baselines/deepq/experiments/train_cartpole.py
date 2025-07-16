@@ -3,7 +3,7 @@ import argparse
 import gym
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.deepq import DQN, MlpPolicy
+from ..deepq import DQN, MlpPolicy
 
 
 def callback(lcl, _glb):

@@ -3,7 +3,7 @@ import logging
 
 import psycopg2
 
-from .database_connector import DatabaseConnector
+from index_advisor_selector.index_selection.swirl_selection.swirl_utils.database_connector import DatabaseConnector
 
 
 class PostgresDatabaseConnector(DatabaseConnector):

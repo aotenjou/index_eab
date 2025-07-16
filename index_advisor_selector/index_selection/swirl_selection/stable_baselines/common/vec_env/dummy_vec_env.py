@@ -4,8 +4,8 @@ from copy import deepcopy
 
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.base_vec_env import VecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env.util import copy_obs_dict, dict_to_obs, obs_space_info
+from ..common.vec_env.base_vec_env import VecEnv
+from ..common.vec_env.util import copy_obs_dict, dict_to_obs, obs_space_info
 
 
 class DummyVecEnv(VecEnv):
@@ -30,7 +30,7 @@ class DummyVecEnv(VecEnv):
             (k, np.zeros((self.num_envs,) + tuple(shapes[k]), dtype=dtypes[k]))
             for k in self.keys])
         self.buf_dones = np.zeros((self.num_envs,), dtype=np.bool)
-        self.buf_rews = np.zeros((self.num_envs,), dtype=np.float32)
+        self.buf_rews = np.zeros((self.num_envs,), dtype=float32)
         self.buf_infos = [{} for _ in range(self.num_envs)]
         self.actions = None
         self.metadata = env.metadata

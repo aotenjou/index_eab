@@ -26,7 +26,7 @@ class Buffer(object):
                 self.obs_dim = env.observation_space.shape[-1]
             else:
                 self.obs_dim = 1
-            self.obs_dtype = np.float32
+            self.obs_dtype = float32
 
         # Memory
         self.enc_obs = None
@@ -104,8 +104,8 @@ class Buffer(object):
         if self.enc_obs is None:
             self.enc_obs = np.empty([self.size] + list(enc_obs.shape), dtype=self.obs_dtype)
             self.actions = np.empty([self.size] + list(actions.shape), dtype=np.int32)
-            self.rewards = np.empty([self.size] + list(rewards.shape), dtype=np.float32)
-            self.mus = np.empty([self.size] + list(mus.shape), dtype=np.float32)
+            self.rewards = np.empty([self.size] + list(rewards.shape), dtype=float32)
+            self.mus = np.empty([self.size] + list(mus.shape), dtype=float32)
             self.dones = np.empty([self.size] + list(dones.shape), dtype=np.bool)
             self.masks = np.empty([self.size] + list(masks.shape), dtype=np.bool)
 

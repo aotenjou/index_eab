@@ -2,8 +2,8 @@ import tensorflow as tf
 import numpy as np
 from gym.spaces import Box
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import BasePolicy, nature_cnn, register_policy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_layers import mlp
+from ..common.policies import BasePolicy, nature_cnn, register_policy
+from ..common.tf_layers import mlp
 
 EPS = 1e-6  # Avoid NaN (prevents division by zero or log of zero)
 # CAP the standard deviation of the actor

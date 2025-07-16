@@ -7,11 +7,11 @@ import tensorflow as tf
 import numpy as np
 from mpi4py import MPI
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger, bench
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import set_global_seeds, boolean_flag
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ddpg.policies import MlpPolicy, LnMlpPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ddpg import DDPG
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ddpg.noise import AdaptiveParamNoiseSpec, OrnsteinUhlenbeckActionNoise, NormalActionNoise
+from . import logger, bench
+from ..common.misc_util import set_global_seeds, boolean_flag
+from ..ddpg.policies import MlpPolicy, LnMlpPolicy
+from ..ddpg import DDPG
+from ..ddpg.noise import AdaptiveParamNoiseSpec, OrnsteinUhlenbeckActionNoise, NormalActionNoise
 
 
 def run(env_id, seed, noise_type, layer_norm, evaluation, **kwargs):

@@ -4,13 +4,13 @@ import gym
 import numpy as np
 import tensorflow as tf
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import explained_variance, tf_util, ActorCriticRLModel, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.runners import AbstractEnvRunner
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import Scheduler
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util import mse, total_episode_reward_logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.math_util import safe_mean
+from . import logger
+from ..common import explained_variance, tf_util, ActorCriticRLModel, SetVerbosity, TensorboardWriter
+from ..common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy
+from ..common.runners import AbstractEnvRunner
+from ..common.schedules import Scheduler
+from ..common.tf_util import mse, total_episode_reward_logger
+from ..common.math_util import safe_mean
 
 
 def discount_with_dones(rewards, dones, gamma):
@@ -382,9 +382,9 @@ class A2CRunner(AbstractEnvRunner):
         mb_dones.append(self.dones)
         # batch of steps to batch of rollouts
         mb_obs = np.asarray(mb_obs, dtype=self.obs.dtype).swapaxes(1, 0).reshape(self.batch_ob_shape)
-        mb_rewards = np.asarray(mb_rewards, dtype=np.float32).swapaxes(0, 1)
+        mb_rewards = np.asarray(mb_rewards, dtype=float32).swapaxes(0, 1)
         mb_actions = np.asarray(mb_actions, dtype=self.env.action_space.dtype).swapaxes(0, 1)
-        mb_values = np.asarray(mb_values, dtype=np.float32).swapaxes(0, 1)
+        mb_values = np.asarray(mb_values, dtype=float32).swapaxes(0, 1)
         mb_dones = np.asarray(mb_dones, dtype=np.bool).swapaxes(0, 1)
         mb_masks = mb_dones[:, :-1]
         mb_dones = mb_dones[:, 1:]

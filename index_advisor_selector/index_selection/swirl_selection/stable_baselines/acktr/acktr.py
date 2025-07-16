@@ -4,15 +4,15 @@ import warnings
 import tensorflow as tf
 from gym.spaces import Box, Discrete
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.a2c.a2c import A2CRunner
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ppo2.ppo2 import Runner as PPO2Runner
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util import mse, total_episode_reward_logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.acktr import kfac
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import Scheduler
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import explained_variance, ActorCriticRLModel, tf_util, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.math_util import safe_mean
+from . import logger
+from ..a2c.a2c import A2CRunner
+from ..ppo2.ppo2 import Runner as PPO2Runner
+from ..common.tf_util import mse, total_episode_reward_logger
+from ..acktr import kfac
+from ..common.schedules import Scheduler
+from ..common import explained_variance, ActorCriticRLModel, tf_util, SetVerbosity, TensorboardWriter
+from ..common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy
+from ..common.math_util import safe_mean
 
 
 class ACKTR(ActorCriticRLModel):

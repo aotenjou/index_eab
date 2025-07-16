@@ -3,10 +3,10 @@
 from mpi4py import MPI
 import mujoco_py  # pytype:disable=import-error
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import set_global_seeds
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import MlpPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import make_robotics_env, robotics_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ppo1 import PPO1
+from ..common import set_global_seeds
+from ..common.policies import MlpPolicy
+from ..common.cmd_util import make_robotics_env, robotics_arg_parser
+from ..ppo1 import PPO1
 
 
 def train(env_id, num_timesteps, seed):

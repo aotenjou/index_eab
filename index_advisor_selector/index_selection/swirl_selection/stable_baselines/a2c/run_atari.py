@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger, A2C
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import make_atari_env, atari_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecFrameStack
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import CnnPolicy, CnnLstmPolicy, CnnLnLstmPolicy
+from . import logger, A2C
+from ..common.cmd_util import make_atari_env, atari_arg_parser
+from ..common.vec_env import VecFrameStack
+from ..common.policies import CnnPolicy, CnnLstmPolicy, CnnLnLstmPolicy
 
 
 def train(env_id, num_timesteps, seed, policy, lr_schedule, num_env):

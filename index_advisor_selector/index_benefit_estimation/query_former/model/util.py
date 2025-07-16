@@ -63,7 +63,7 @@ class Normalizer:
         return labels_norm
 
     def unnormalize_labels(self, labels_norm):
-        labels_norm = np.array(labels_norm, dtype=np.float32)
+        labels_norm = np.array(labels_norm, dtype=float32)
         labels = (labels_norm * (self.maxi - self.mini)) + self.mini
 
         #         return np.array(np.round(np.exp(labels) - 0.001), dtype=np.int64)
@@ -85,7 +85,7 @@ def normalize_data(val, column_name, column_min_max_vals):
     val_norm = 0.0
     if max_val > min_val:
         val_norm = (val - min_val) / (max_val - min_val)
-    return np.array(val_norm, dtype=np.float32)
+    return np.array(val_norm, dtype=float32)
 
 
 def get_corr(ps, ls):

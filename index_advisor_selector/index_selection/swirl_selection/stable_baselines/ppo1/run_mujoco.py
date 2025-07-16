@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ppo1 import PPO1
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import MlpPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import make_mujoco_env, mujoco_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
+from ..ppo1 import PPO1
+from ..common.policies import MlpPolicy
+from ..common.cmd_util import make_mujoco_env, mujoco_arg_parser
+from . import logger
 
 
 def train(env_id, num_timesteps, seed):

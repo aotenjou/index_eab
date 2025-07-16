@@ -6,11 +6,11 @@ from typing import Union, Optional, Any
 import gym
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.callbacks import BaseCallback
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv
+from ..common.callbacks import BaseCallback
+from ..common.vec_env import VecEnv
 
 if typing.TYPE_CHECKING:
-    from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.base_class import BaseRLModel  # pytype: disable=pyi-error
+    from ..common.base_class import BaseRLModel  # pytype: disable=pyi-error
 
 
 class AbstractEnvRunner(ABC):

@@ -1,6 +1,6 @@
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv
+from ..common.vec_env import VecEnv
 
 
 def evaluate_policy(model, env, n_eval_episodes=10, deterministic=True,

@@ -4,13 +4,13 @@ import warnings
 import numpy as np
 import tensorflow as tf
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.math_util import safe_mean, unscale_action, scale_action
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import get_schedule_fn
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.buffers import ReplayBuffer
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.td3.policies import TD3Policy
+from . import logger
+from ..common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
+from ..common.vec_env import VecEnv
+from ..common.math_util import safe_mean, unscale_action, scale_action
+from ..common.schedules import get_schedule_fn
+from ..common.buffers import ReplayBuffer
+from ..td3.policies import TD3Policy
 
 
 class TD3(OffPolicyRLModel):

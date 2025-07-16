@@ -11,13 +11,13 @@ import importlib
 
 import gym
 
-from index_advisor_selector.index_selection.swirl_selection.gym_db.common import EnvironmentType
+from .gym_db.common import EnvironmentType
 
-from swirl_utils import swirl_com
-from swirl_utils.schema import Schema
-from swirl_utils.workload_generator import WorkloadGenerator
-from swirl_utils.postgres_dbms import PostgresDatabaseConnector
-from swirl_utils.configuration_parser import ConfigurationParser
+from .swirl_utils import swirl_com
+from .swirl_utils.schema import Schema
+from .swirl_utils.workload_generator import WorkloadGenerator
+from .swirl_utils.postgres_dbms import PostgresDatabaseConnector
+from .swirl_utils.configuration_parser import ConfigurationParser
 
 
 class Experiment(object):

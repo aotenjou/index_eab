@@ -11,24 +11,24 @@ from configparser import ConfigParser
 
 class PGHypo:
     def __init__(self, db_conf):
-        # config_raw = ConfigParser()
-        # config_raw.read(conf_load)
+        config_raw = ConfigParser()
+        config_raw.read(db_conf)
 
-        # defaults = config_raw.defaults()
-        # self.host = defaults.get('pg_ip')
-        # self.port = defaults.get('pg_port')
-        # self.user = defaults.get('pg_user')
-        # self.password = defaults.get('pg_password')
-        # self.database = defaults.get('pg_database')
+        defaults = config_raw.defaults()
+        self.host = defaults.get('host')
+        self.port = defaults.get('port')
+        self.user = defaults.get('user')
+        self.password = defaults.get('password')
+        self.database = defaults.get('database')
 
-        config_raw = db_conf
-
-        defaults = config_raw["postgresql"]
-        self.host = defaults.get("host")
-        self.port = defaults.get("port")
-        self.user = defaults.get("user")
-        self.password = defaults.get("password")
-        self.database = defaults.get("database")
+        # config_raw = db_conf
+        #
+        # defaults = config_raw["postgresql"]
+        # self.host = defaults.get("host")
+        # self.port = defaults.get("port")
+        # self.user = defaults.get("user")
+        # self.password = defaults.get("password")
+        # self.database = defaults.get("database")
         self.conn = pg.connect(database=self.database, user=self.user,
                                password=self.password, host=self.host, port=self.port)
 
@@ -57,7 +57,7 @@ class PGHypo:
         cost_list: List[float] = list()
         cur = self.conn.cursor()
         for i, query in enumerate(query_list):
-            query = "explain " + query
+            query = "explain " + query # 调用EXPLAIN来估算成本
             cur.execute(query)
             rows = cur.fetchall()
             df = pd.DataFrame(rows)

@@ -11,12 +11,12 @@ tf.disable_v2_behavior()
 
 from gym.spaces import Discrete
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util import batch_to_seq, seq_to_batch
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_layers import conv, linear, conv_to_fc, lstm
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.distributions import make_proba_dist_type, \
+from ..common.tf_util import batch_to_seq, seq_to_batch
+from ..common.tf_layers import conv, linear, conv_to_fc, lstm
+from ..common.distributions import make_proba_dist_type, \
     CategoricalProbabilityDistribution, \
     MultiCategoricalProbabilityDistribution, DiagGaussianProbabilityDistribution, BernoulliProbabilityDistribution
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.input import observation_input
+from ..common.input import observation_input
 
 
 def original_nature_cnn(scaled_images, **kwargs):
@@ -282,7 +282,7 @@ class BasePolicy(ABC):
         """
         # assert np.count_nonzero(np.array(action_mask) == 1) > 0, f"{np.count_nonzero(np.array(action_mask) == 1)} from {np.array(action_mask)}"
 
-        action_mask = np.array(action_mask, dtype=np.float32)
+        action_mask = np.array(action_mask, dtype=float32)
         action_mask[action_mask == 0] = -np.inf
         action_mask[action_mask == 1] = 0
 
@@ -438,7 +438,7 @@ class RecurrentActorCriticPolicy(ActorCriticPolicy):
             self._states_ph = tf.placeholder(tf.float32, state_ph_shape, name="states_ph")
 
         initial_state_shape = (self.n_env,) + tuple(state_shape)
-        self._initial_state = np.zeros(initial_state_shape, dtype=np.float32)
+        self._initial_state = np.zeros(initial_state_shape, dtype=float32)
 
     @property
     def initial_state(self):
@@ -593,7 +593,7 @@ class LstmPolicy(RecurrentActorCriticPolicy):
         feed_dict = {self.obs_ph: obs, self.states_ph: state, self.dones_ph: mask}
         if action_mask is not None and len(action_mask) != 0:
             # feed_dict[self.action_mask_ph] = self.prepare_action_mask(action_mask)
-            feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=np.float32)
+            feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=float32)
         if deterministic:
             return self.sess.run([self.deterministic_action, self.value_flat, self.snew, self.neglogp],
                                  feed_dict)
@@ -605,7 +605,7 @@ class LstmPolicy(RecurrentActorCriticPolicy):
         feed_dict = {self.obs_ph: obs, self.states_ph: state, self.dones_ph: mask}
         if action_mask is not None and len(action_mask) != 0:
             # feed_dict[self.action_mask_ph] = self.prepare_action_mask(action_mask)
-            feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=np.float32)
+            feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=float32)
         return self.sess.run(self.policy_proba, feed_dict)
 
     def value(self, obs, state=None, mask=None):
@@ -669,7 +669,7 @@ class FeedForwardPolicy(ActorCriticPolicy):
         feed_dict = {self.obs_ph: obs}
         if action_mask is not None and len(action_mask) != 0:
             # feed_dict[self.action_mask_ph] = self.prepare_action_mask(action_mask)
-            # feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=np.float32)
+            # feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=float32)
             feed_dict[self.action_mask_ph] = action_mask
         if deterministic:
             # import tensorflow as tf
@@ -702,7 +702,7 @@ class FeedForwardPolicy(ActorCriticPolicy):
         feed_dict = {self.obs_ph: obs}
         if action_mask is not None and len(action_mask) != 0:
             # feed_dict[self.action_mask_ph] = self.prepare_action_mask(action_mask)
-            # feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=np.float32)
+            # feed_dict[self.action_mask_ph] = np.array(action_mask, dtype=float32)
             feed_dict[self.action_mask_ph] = action_mask
         return self.sess.run(self.policy_proba, feed_dict)
 

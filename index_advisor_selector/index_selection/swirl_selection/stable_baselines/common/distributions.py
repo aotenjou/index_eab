@@ -5,7 +5,7 @@ tf.disable_v2_behavior()
 from tensorflow.python.ops import math_ops
 from gym import spaces
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_layers import linear
+from ..common.tf_layers import linear
 
 
 class ProbabilityDistribution(object):

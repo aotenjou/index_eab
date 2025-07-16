@@ -13,12 +13,12 @@ import tensorflow._api.v2.compat.v1 as tf
 
 tf.disable_v2_behavior()
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv, sync_envs_normalization, DummyVecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.evaluation import evaluate_policy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
+from ..common.vec_env import VecEnv, sync_envs_normalization, DummyVecEnv
+from ..common.evaluation import evaluate_policy
+from . import logger
 
 if typing.TYPE_CHECKING:
-    from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.base_class import BaseRLModel  # pytype: disable=pyi-error
+    from ..common.base_class import BaseRLModel  # pytype: disable=pyi-error
 
 
 class BaseCallback(ABC):

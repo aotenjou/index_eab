@@ -6,8 +6,8 @@ from typing import Sequence, Optional, List, Union
 import cloudpickle
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tile_images import tile_images
+from . import logger
+from ..common.tile_images import tile_images
 
 
 class AlreadySteppingError(Exception):

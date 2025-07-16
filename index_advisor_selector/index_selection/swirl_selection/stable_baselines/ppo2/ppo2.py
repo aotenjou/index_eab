@@ -8,16 +8,16 @@ import tensorflow._api.v2.compat.v1 as tf
 
 tf.disable_v2_behavior()
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import explained_variance, ActorCriticRLModel, tf_util, SetVerbosity, \
+from . import logger
+from ..common import explained_variance, ActorCriticRLModel, tf_util, SetVerbosity, \
     TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.runners import AbstractEnvRunner
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import flatten_action_mask
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy, MlpPolicy, \
+from ..common.runners import AbstractEnvRunner
+from ..common.misc_util import flatten_action_mask
+from ..common.policies import ActorCriticPolicy, RecurrentActorCriticPolicy, MlpPolicy, \
     FeedForwardPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.schedules import get_schedule_fn
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util import total_episode_reward_logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.math_util import safe_mean
+from ..common.schedules import get_schedule_fn
+from ..common.tf_util import total_episode_reward_logger
+from ..common.math_util import safe_mean
 
 
 class PPO2(ActorCriticRLModel):
@@ -559,12 +559,12 @@ class Runner(AbstractEnvRunner):
             mb_rewards.append(rewards)
         # batch of steps to batch of rollouts
         mb_obs = np.asarray(mb_obs, dtype=self.obs.dtype)
-        mb_rewards = np.asarray(mb_rewards, dtype=np.float32)
+        mb_rewards = np.asarray(mb_rewards, dtype=float32)
         mb_actions = np.asarray(mb_actions)
-        mb_values = np.asarray(mb_values, dtype=np.float32)
-        mb_neglogpacs = np.asarray(mb_neglogpacs, dtype=np.float32)
+        mb_values = np.asarray(mb_values, dtype=float32)
+        mb_neglogpacs = np.asarray(mb_neglogpacs, dtype=float32)
         mb_dones = np.asarray(mb_dones, dtype=np.bool)
-        mb_action_masks = np.asfarray(mb_action_masks, dtype=np.float32)
+        mb_action_masks = np.asfarray(mb_action_masks, dtype=float32)
         last_values = self.model.value(self.obs, self.states, self.dones)
         # discount/bootstrap off value fn
         mb_advs = np.zeros_like(mb_rewards)

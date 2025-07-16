@@ -14,16 +14,16 @@ import numpy as np
 import tensorflow._api.v2.compat.v1 as tf
 tf.disable_v2_behavior()
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import set_global_seeds
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.save_util import data_to_json, json_to_data, params_to_bytes, \
+from ..common.misc_util import set_global_seeds
+from ..common.save_util import data_to_json, json_to_data, params_to_bytes, \
     bytes_to_params
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import get_policy_from_name, ActorCriticPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.runners import AbstractEnvRunner
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import (VecEnvWrapper, VecEnv, DummyVecEnv,
+from ..common.policies import get_policy_from_name, ActorCriticPolicy
+from ..common.runners import AbstractEnvRunner
+from ..common.vec_env import (VecEnvWrapper, VecEnv, DummyVecEnv,
                                                              VecNormalize, unwrap_vec_normalize)
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.callbacks import BaseCallback, CallbackList, ConvertCallback
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import flatten_action_mask
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
+from ..common.callbacks import BaseCallback, CallbackList, ConvertCallback
+from ..common.misc_util import flatten_action_mask
+from . import logger
 
 
 class BaseRLModel(ABC):

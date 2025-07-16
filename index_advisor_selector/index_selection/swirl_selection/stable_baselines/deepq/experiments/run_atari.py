@@ -1,10 +1,10 @@
 import argparse
 from functools import partial
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import bench, logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import set_global_seeds
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.atari_wrappers import make_atari
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.deepq import DQN, wrap_atari_dqn, CnnPolicy
+from . import bench, logger
+from ..common import set_global_seeds
+from ..common.atari_wrappers import make_atari
+from ..deepq import DQN, wrap_atari_dqn, CnnPolicy
 
 
 def main():

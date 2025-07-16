@@ -1,7 +1,7 @@
 from mpi4py import MPI
 import numpy as np
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.misc_util import zipsame
+from ..common.misc_util import zipsame
 
 
 def mpi_mean(arr, axis=0, comm=None, keepdims=False):

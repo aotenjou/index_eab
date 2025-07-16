@@ -1,9 +1,9 @@
 import functools
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import BaseRLModel
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import OffPolicyRLModel
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.base_class import _UnvecWrapper
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnvWrapper
+from ..common import BaseRLModel
+from ..common import OffPolicyRLModel
+from ..common.base_class import _UnvecWrapper
+from ..common.vec_env import VecEnvWrapper
 from .replay_buffer import HindsightExperienceReplayWrapper, KEY_TO_GOAL_STRATEGY
 from .utils import HERGoalEnvWrapper
 

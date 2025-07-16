@@ -11,14 +11,14 @@ import tensorflow as tf
 import tensorflow.contrib as tc
 from mpi4py import MPI
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.mpi_adam import MpiAdam
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.buffers import ReplayBuffer
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.math_util import unscale_action, scale_action
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.mpi_running_mean_std import RunningMeanStd
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ddpg.policies import DDPGPolicy
+from . import logger
+from ..common import tf_util, OffPolicyRLModel, SetVerbosity, TensorboardWriter
+from ..common.vec_env import VecEnv
+from ..common.mpi_adam import MpiAdam
+from ..common.buffers import ReplayBuffer
+from ..common.math_util import unscale_action, scale_action
+from ..common.mpi_running_mean_std import RunningMeanStd
+from ..ddpg.policies import DDPGPolicy
 
 
 def normalize(tensor, stats):

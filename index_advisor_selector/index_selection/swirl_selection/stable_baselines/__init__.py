@@ -1,13 +1,13 @@
 import os
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.a2c import A2C
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.acer import ACER
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.acktr import ACKTR
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.deepq import DQN
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.her import HER
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.ppo2 import PPO2
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.td3 import TD3
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.sac import SAC
+from ..a2c import A2C
+from ..acer import ACER
+from ..acktr import ACKTR
+from ..deepq import DQN
+from ..her import HER
+from ..ppo2 import PPO2
+from ..td3 import TD3
+from ..sac import SAC
 
 # Load mpi4py-dependent algorithms only if mpi is installed.
 try:

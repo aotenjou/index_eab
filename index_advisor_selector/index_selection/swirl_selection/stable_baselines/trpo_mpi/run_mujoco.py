@@ -2,10 +2,10 @@
 # noinspection PyUnresolvedReferences
 from mpi4py import MPI
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.cmd_util import make_mujoco_env, mujoco_arg_parser
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.policies import MlpPolicy
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines import logger
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.trpo_mpi import TRPO
+from ..common.cmd_util import make_mujoco_env, mujoco_arg_parser
+from ..common.policies import MlpPolicy
+from . import logger
+from ..trpo_mpi import TRPO
 import index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.tf_util as tf_util
 
 

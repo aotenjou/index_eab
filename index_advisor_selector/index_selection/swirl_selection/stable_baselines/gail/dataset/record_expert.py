@@ -6,9 +6,9 @@ import cv2  # pytype:disable=import-error
 import numpy as np
 from gym import spaces
 
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.base_class import BaseRLModel
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.vec_env import VecEnv, VecFrameStack
-from index_advisor_selector.index_selection.swirl_selection.stable_baselines.common.base_class import _UnvecWrapper
+from ..common.base_class import BaseRLModel
+from ..common.vec_env import VecEnv, VecFrameStack
+from ..common.base_class import _UnvecWrapper
 
 
 def generate_expert_traj(model, save_path=None, env=None, n_timesteps=0,
