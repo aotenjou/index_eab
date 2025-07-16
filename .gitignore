@@ -1,0 +1,15 @@
+# PyTorch/深度学习模型文件
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.pkl
+*.pickle
+
+# Python缓存
+__pycache__/
+index_advisor_selector/index_benefit_estimation/index_cost_lib/__pycache__/
+index_advisor_selector/index_benefit_estimation/index_cost_lib/utils/__pycache__/
+
+# 实验输出的模型目录
+exp_res/*/model/
